@@ -1,0 +1,10 @@
+# secrets
+/.env
+
+# data
+registrations
+connections
+heartbeats
+
+# built files
+index.html
