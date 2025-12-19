@@ -2,6 +2,8 @@
 
 Listen for [ConnectedLittleBoxes](https://www.connectedlittleboxes.com/) and respond to commands. Also display a nice HTML page to see the state of the system.
 
+![picture of website showing status of two boxes](example.png)
+
 You need an MQTT server set up to use this.
 
 ## Box setup
