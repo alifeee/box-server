@@ -35,12 +35,18 @@ for boxfile in registrations/*.json; do
   read name friendlyName reg_ts reg_dt < <(echo $(cat "${boxfile}" | jq -r '.name, .friendlyName, .ts, .dt'))
 
   # connections
-  connections=$(find connections -type f -name "${name}*.json")
-  connections_jsons=$(
-    while read conn; do
-      cat "${conn}" | jq -c
-    done <<< $(echo "${connections}")
-  )
+  if [[ -f "connections/${name}.log" ]]; then
+    data=$(
+      tac "connections/${name}.log" \
+        | awk -F' ' '{printf "<time data-ts=%s></time> %s\n", $1, $0}'
+    )
+    connections='<details>
+      <summary>last '"$(echo "${data}" | wc -l)"' connections</summary>
+      <pre>'"${data}"'</pre>
+    </details>'
+  else
+    connections="no recorded connections"
+  fi
 
   # heartbeats
   if [[ -f "heartbeats/${name}" ]]; then
@@ -50,22 +56,45 @@ for boxfile in registrations/*.json; do
     heartbeat="none yet!"
   fi
 
+  # buttons
+  if [[ -f "buttons/${name}" ]]; then
+    ts=$(cat buttons/${name})
+    buttonpress="<time data-ts='${ts}'>${ts}</time>"
+  else
+    buttonpress="none yet!"
+  fi
+
+  # data
+  if [[ -f "data/${name}.log" ]]; then
+    data=$(
+      tac "data/${name}.log" \
+        | awk -F' ' '{printf "<time data-ts=%s></time> %s\n", $1, $0}'
+    )
+    statuses='<details>
+      <summary>last '"$(echo "${data}" | wc -l)"' data status reports</summary>
+      <pre>'"${data}"'</pre>
+    </details>'
+  else
+    statuses="no recorded status reports"
+  fi
+  
+
   # template
 cat << EOHTML
   <div id="" class="box">
   <span class="name">${name}</span>
   <h3 class="friendlyName">${friendlyName}</h3>
   <span class="heartbeat">last heartbeat: ${heartbeat}</span>
+  <span class="buttonpress">last button: ${buttonpress}</span>
+
+  <div>${statuses}</div>
   
   <details open>
     <summary>registered: <time data-ts=${reg_ts}>${reg_dt}</time></span></summary>
     <pre>${json}</pre>
   </details>
 
-  <details>
-    <summary>$(echo "${connections}" | wc -l) connections</summary>
-    <pre>${connections_jsons}</pre>
-  </details>
+  <div>${connections}</div>
   </div>
 EOHTML
 done 

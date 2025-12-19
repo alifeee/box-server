@@ -31,12 +31,13 @@ time[data-ts] span {
 
 #all-boxes {
   display: flex;
+  gap: 1rem;
 }
 
 .box {
   border: 1px solid white;
   border-radius: 1rem;
-  max-width: 20rem;
+  max-width: 25rem;
   padding: 1rem;
   display: flex;
   flex-direction: column;

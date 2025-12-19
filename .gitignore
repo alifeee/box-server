@@ -5,6 +5,8 @@
 registrations
 connections
 heartbeats
+buttons
+data
 
 # built files
 index.html
