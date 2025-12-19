@@ -2,12 +2,31 @@
   box-sizing: border-box;
 }
 
-#refresh {
-  border: 1px solid black;
+html,
+body {
+  background-color: black;
+  color: white;
+}
+
+time[data-ts] span {
+  font-weight: bold;
+}
+
+#refresh,
+#autorefresh {
+  border: 1px solid white;
   border-radius: 1rem;
   color: pink;
   padding: 1rem;
+  margin: 0;
   background-color: darkblue;
+  text-decoration: none;
+  color: white;
+  display: inline-block;
+  cursor: pointer;
+}
+#autorefresh.pressed {
+  background-color: darkgoldenrod;
 }
 
 #all-boxes {
@@ -15,7 +34,7 @@
 }
 
 .box {
-  border: 1px solid black;
+  border: 1px solid white;
   border-radius: 1rem;
   max-width: 20rem;
   padding: 1rem;
@@ -26,8 +45,10 @@
 .box .name {
   opacity: 0.5;
   font-size: 1rem;
+  margin-bottom: -1rem;
 }
 .box h3 {
   margin: 0;
+  margin-left: 1rem;
   font-size: 2rem;
 }

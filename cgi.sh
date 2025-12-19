@@ -3,4 +3,4 @@
 
 echo "Content-type: text/html"
 echo ""
-./render.sh
+(cd /usr/alifeee/box-server/; ./render.sh)

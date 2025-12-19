@@ -1,7 +1,20 @@
-function timeSince(timestamp) {
-  var seconds = Math.floor(new Date() - timestamp * 1000) / 1000;
+const timer = setTimeout(function () {
+  window.location = window.location;
+}, 10000);
 
-  var interval = seconds / 31536000;
+function disable_autorefresh() {
+  clearTimeout(timer);
+  document.querySelector("#autorefresh").classList.add("pressed");
+}
+
+function secsSince(timestamp) {
+  return Math.floor(new Date() - timestamp * 1000) / 1000;
+}
+
+function timeSince(timestamp) {
+  const seconds = secsSince(timestamp);
+
+  let interval = seconds / 31536000;
 
   if (interval > 2) {
     return Math.floor(interval) + " years";
@@ -31,11 +44,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const ts = time.dataset["ts"];
 
     let agoEl = document.createElement("span");
-    agoEl.innerText = ` (${timeSince(ts)} ago)`;
+    agoEl.style.color = "lightblue";
     time.appendChild(agoEl);
 
-    setInterval(function () {
+    function update() {
       agoEl.innerText = ` (${timeSince(ts)} ago)`;
-    }, 1000);
+      if (time.dataset["good"]) {
+        agoEl.style.color =
+          secsSince(ts) < time.dataset["good"] ? "lightgreen" : "lightcoral";
+      }
+    }
+
+    update();
+    setInterval(update, 1000);
   });
 });

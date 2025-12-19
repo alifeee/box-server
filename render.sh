@@ -17,8 +17,11 @@ $(cat script.js)
 <header>
 <h1>Boxes</h1>
 <p>
-  <a id="refresh" href="/">REFRESH</a>
   generated at <time data-ts="$(date '+%s')">$(date)</time>
+</p>
+<p>
+  <button id="autorefresh" onclick="disable_autorefresh()">disable autorefresh</button>
+  <button id="refresh" onclick='window.location = window.location;'>refresh now</button>
 </p>
 </header>
 <main>
@@ -42,7 +45,7 @@ for boxfile in registrations/*.json; do
   # heartbeats
   if [[ -f "heartbeats/${name}" ]]; then
     ts=$(cat heartbeats/${name})
-    heartbeat="<time data-ts='${ts}'>${ts}</time>"
+    heartbeat="<time data-ts='${ts}' data-good=60>${ts}</time>"
   else
     heartbeat="none yet!"
   fi
