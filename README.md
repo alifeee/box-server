@@ -25,6 +25,8 @@ mqtthost=<mqtthost>
 mqttuser=<mqttuser>
 mqttpwd=<mqttpass>
 pushbuttonfitted=yes
+buttoninputpin=4
+buttoninputgroundpin=5
 pixelbrightness=0.2
 {"process":"pixels","command":"pattern","pattern":"mask","colourmask":"GGGRRRRRRRRR","store":"start","id":"1of12"}
 {"process":"pixels","command":"pattern","pattern":"mask","colourmask":"GGGGGGRRRRRR","store":"wifi","id":"2of12"}
