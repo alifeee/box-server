@@ -56,6 +56,18 @@ sudo ln -s /usr/alifeee/box-server/cgi.sh /var/www/cgi/do/boxes
 # set up listener
 sudo apt install jq mosquitto-clients
 mkdir -p registrations connections heartbeats buttons data
-# run as a service continually (not yet made a service file)
+
+# set up ownership
+sudo useradd -r -s /bin/false connectedlittleboxes
+sudo chgrp -R connectedlittleboxes .
+sudo chmod -R g+w .
+
+# run (debug)
 ./run.sh
+
+# run as a service
+sudo cp box-server.service /etc/systemd/system
+sudo systemctl enable box-server.service
+sudo systemctl start box-server.service
+sudo systemctl status box-server.service
 ```

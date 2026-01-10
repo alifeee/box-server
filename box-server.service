@@ -1,0 +1,16 @@
+[Unit]
+Description=Server for ConnectedLittleBoxes
+After=network.target
+
+[Service]
+User=connectedlittleboxes
+Group=connectedlittleboxes
+
+ExecStart=/usr/alifeee/box-server/run.sh
+WorkingDirectory=/usr/alifeee/box-server
+
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

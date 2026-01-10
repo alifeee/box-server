@@ -16,6 +16,7 @@ BUTTON_TIME=15 # wait this long until cancelling button press
 LAST_BUTTON_PRESS_TS_BOX1=0
 LAST_BUTTON_PRESS_TS_BOX2=0
 
+date >&2
 echo "starting to listen…" >&2
 
 # pub command/CLB-f8waj '{"process":"pixels","command":"setrandomcolour", "from": "PC"}'
